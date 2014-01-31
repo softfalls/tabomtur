@@ -1,4 +1,15 @@
 var main = {};
+
+main.ajax=function(obj,funcao,view){                                                  // FUNÇÃO AJAX
+        var data = {'obj':obj,'action':funcao};                                             // SETA OS PARAMETROS
+        var retorno;                                                                        // VAR DE RETORNO
+        $.ajax({type:"POST", url:view, dataType:"json", data:data,async:false,              // FAZ UM AJAX SINCRONIZADO COM A FUNCAO
+            success: function(json) { retorno = json; },                                    // RETORNO DO AJAX NO SUCCESS
+            error: function(json) { retorno=json; }                                         // RETORNO DO AJAX NO ERROR
+        });                                                                                 // FIM DO AJAX        
+        return retorno;                                                                     // RETORNO DA FUNÇÃO
+};
+    
 main.listarNaTable=function(jQueryTable,json,cab){                                    // FUNÇÃO LISTAR NA TABLE
     if(json === null){ return 0;}                                                       // CASO JSON NAO TENHA NENHUM ELEMENTO
     jQueryTable.empty();                                                                // LIMPA A TABLE
@@ -19,7 +30,39 @@ main.listarNaTable=function(jQueryTable,json,cab){                              
         }                                                                               // FIM DO LAÇO
         $('<tr></tr>').append(colunas).appendTo(jQueryTable);          // APPEND PARA O TABLE
     }                                                                                   // FIM DO FOR
-}; 
+};
+/**
+     * custom.autocomplet(jQuery,strLabel,ajaxFuncao,ajaxView)<br/>
+     * paramentros:<br/>
+     * &nbsp; jQuery = elemento jQuery ex: $('#ex')<br/>
+     * &nbsp; strLabel = string atributo da tab que vai no input <br/>
+     * &nbsp; strFuncao = string funcao php a ser chamada<br/>
+     * &nbsp; strView = string view a ser chamada<br/>
+     * return:<br/>
+     * &nbsp; para o RETORNO use a seguinte assinatura: <br/>
+     * &nbsp; custom.autocomplet.retorno=function(obj){<br/> &nbsp;...<br/> &nbsp;};
+     */
+    main.autocomplet=function(jQuery,strLabel,strFuncao,strView){                       // FUNÇÃO AUTOCOMPLETAR        
+        jQuery.autocomplete({                                                               // AUTOCOMPLETAR O FORNECEDOR
+            minLength: 2,                                                                   // CARACTERES MINIMO PARA AUTOCOMPLETAR
+            source: function(request, response) {                                           // ORIGEM DA INFORMAÇÃO                
+                var obj = new Object();                                                     // NOVO OBJETO
+                obj.maxRows = 10;                                                           // MAXIMO DE REGISTROS NO RETORNO
+                obj.letra = request.term;                                                   // TERMO DA PESQUISA
+                var data = main.ajax(obj, strFuncao, strView);                          // DATA RECEBE RESULTADOS DO AJAX
+                response($.map(data, function(item) {                                       // FUNCAO RESPONSE 
+                    return {label: item[strLabel], obj: item}                               // LABEL E OBJ DE RETORNO
+                }));                                                                        // RETORNO
+            },                                                                              // FIM DA ORIGEM DOS DADOS
+            select: function(event, ui) {                                                   // PARAMETRO SELECT                                
+                var obj = ui.item.obj;                                                      // RECEBE O OBJETO DE RETORNO                
+                jQuery.val(obj[strLabel]);                                                  // PREENCHE RETORNO DA CONSULTA                
+                main.autocomplet.retorno(obj);
+                main.objRetorno = obj;
+            }                                                                               // FIM DO PARAMETRO SELECT
+        });                                                                                 // FIM DO JQUERYAUTOCOMPLETE        
+    };
+    main.autocomplet.retorno=function(obj){};
             
             function loadContent(id, pagina) {           
                 $(id).slideUp("slow",function(){//efeito de sobe e desce o footer

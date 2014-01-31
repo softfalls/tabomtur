@@ -4,7 +4,7 @@ include '../controler/ColGrupo.php';
 include '../lib/formatador.php';
 
 //set
-$c = new ColCliente();
+$c = new ColGrupo();
 
 //route
 $action = $_REQUEST['action'];
@@ -78,8 +78,10 @@ function update(){
 }
 
 function fetchAll(){
+    $obj= (object)$_REQUEST['obj'];
     global $c;
-    $result = $c->getTodosRegistros('clie_nome');
+    $c->set("gru_nome", $obj->gru_nome);
+    $result = $c->getTodosRegistros();
     while ( $row = mysql_fetch_assoc( $result ) ) {
         $array[] = array(
             'gru_id'                =>$row['gru_id'],
@@ -110,7 +112,7 @@ function buscaId()	{
     $obj= (object)$_REQUEST['obj'];
 
     global $c;
-    $c->set("clie_id", $obj->id);
+    $c->set("gru_id", $obj->gru_id);
     $rs = $c->getCadastroId();
     while ( $row = mysql_fetch_assoc( $rs ) ) {
         $resultado[] = array(

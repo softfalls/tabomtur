@@ -85,7 +85,7 @@ function fetchAll(){
     ));
 }
         
-function buscaId()	{
+function buscaId(){
     $obj= (object)$_REQUEST['obj'];
 
     global $c;
@@ -107,5 +107,18 @@ function buscaId()	{
         "success" => true,
         "total" => mysql_num_rows($rs)
     ));
+
+}
+
+function buscaNome(){
+    $obj= (object)$_REQUEST['obj'];
+
+    global $c;
+    $c->set("guia_nome", $obj->letra);
+    $rs = $c->getNomeAutocomplete();
+    while ( $row = mysql_fetch_assoc( $rs ) ) {
+        $resultado[] =$row;
+    }
+    echo json_encode($resultado);
 
 }

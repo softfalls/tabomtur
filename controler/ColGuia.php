@@ -113,5 +113,14 @@ class ColGuia {
         $con->set("sql", $sql);
         return $con->execute();
     }
+    
+    public function getNomeAutocomplete() {
+        $con = new cConexao(); #Cria um novo objeto de conexão com o BD.
+        $con->conectar();
+        $con->selecionarDB();
+        $sql = "SELECT * FROM tab_guia WHERE guia_nome like '".$this->guia_nome."%' order by guia_nome";
+        $con->set("sql", $sql);
+        return $con->execute();
+    }
 
 }

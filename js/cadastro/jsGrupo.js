@@ -1,19 +1,52 @@
-var jsCliente = {};
+var jsGrupo = {};
 
-jsCliente.start = function(){jsCliente.eventos();};
-jsCliente.mask = function(){
-    $("#gdata").mask('00/00/0000');
-    $("#ghorario").mask('00:00:00');
-    $("#gentradahotel").mask('00/00/0000');
-    $("#gquantidade").mask('000');
-    $("#gsaidahotel").mask('00/00/0000');
+jsGrupo.start = function(){jsGrupo.eventos();};
+jsGrupo.mask = function(){
+    $("#gru_hot_saida").mask('00/00/0000');
+    $("#gru_hot_entrada").mask('00/00/0000');
 };
 
-jsCliente.eventos = function(){
-jsCliente.getlista();
-    $('#gSalvar').click(function(){jsCliente.salvar();});
+jsGrupo.eventos = function(){
+    jsGrupo.getlista();
+    jsGrupo.mask();
+    jsGrupo.autoGuia();
+    jsGrupo.autoHotel();
+    jsGrupo.autoMotorista();
+    
+    $('#gru_Salvar').click(function(){jsGrupo.salvar();});
+    
+    $('#GrupoNovoEditar').on('hidden.bs.modal', function () {
+        $('#titulo').text('Novo Cadastro');
+        $('#GrupoNovoEditar input,textarea').each(function(){
+            $(this).val('');
+        });
+    });
+    $('#GrupoNovoEditar').on('shown.bs.modal', function () {
+        $("#gru_nome").focus();
+    });
+    $('#infoModal').on('hidden.bs.modal', function () {
+       //loadContent('#conteudo','html/cadastro/hotel.html?v=2');
+    });
 };
-jsCliente.informe = function(msg) {
+
+jsGrupo.autoGuia=function(){    
+    main.autocomplet($('#guia_nome'),'guia_nome','buscaNome','view/vGuia.php');    
+    main.autocomplet.retorno=function(obj){ console.info(obj.guia_id);$("#guia_id").val(obj.guia_id); };        
+};
+
+jsGrupo.autoMotorista=function(){    
+    main.autocomplet($('#mot_nome'),'mot_nome','buscaNome','view/vMotorista.php');    
+    var obj = main.objRetorno;
+    $("#mot_id").val(obj.guia_id);  
+};
+
+jsGrupo.autoHotel=function(){    
+    main.autocomplet($('#hot_nome'),'hot_nome','buscaNome','view/vHotel.php');    
+    var obj = main.objRetorno;
+    $("#hot_id").val( obj.guia_id ) ;        
+};
+
+jsGrupo.informe = function(msg) {
     $("#msg").text(msg);
     $("#dialog").dialog({with : 300, height: 150,
         modal: true, buttons: {
@@ -25,8 +58,8 @@ jsCliente.informe = function(msg) {
     });
 };
 
-jsCliente.ajax = function(obj, funcao, v) {
-    var view = v == null ? 'view/vCliente.php' : v;
+jsGrupo.ajax = function(obj, funcao, v) {
+    var view = v == null ? 'view/vGrupo.php' : v;
     var data = {'obj': obj, 'action': funcao};
     var retorno;
     $.ajax({type: "POST", url: view, dataType: "json", data: data, async: false,
@@ -40,48 +73,57 @@ jsCliente.ajax = function(obj, funcao, v) {
     return retorno;
 };
 
-jsCliente.getDoForm = function(){
+jsGrupo.getDoForm = function(){
     var obj = new Object();
-        obj.id          = $("#grupoId").val();
-        obj.nome        = $("#gnome").val();
-        obj.quantidade  = $("#gquantidade").val();
-        obj.guiaId      = $("#gguia").val();
-        obj.voo         = $("#gvoo").val();
-        obj.dtVoo       = $("#gdata").val();
-        obj.hrVoo       = $("#ghorario").val();
-        obj.hotelId     = $("#gnomehotel").val();
-        obj.hotEntrada  = $("#gentradahotel").val();
-        obj.hotSaida    = $("#gsaidahotel").val();
-        obj.obsReserva  = $("#gdescricaoreserva").val();
-        obj.programacao = $("#gprogramacao").val();
+        obj.gru_id              = $("#gru_id").val();
+        obj.gru_nome            = $("#gru_nome").val();
+        obj.gru_nome_paxs       = $("#gru_nome_paxs").val();
+        obj.guia_id             = $("#guia_id").val();
+        obj.mot_id              = $("#mot_id").val();
+        obj.gru_placa           = $("#gru_placa").val();
+        obj.gru_veiculo         = $("#gru_veiculo").val();
+        obj.gru_coordenador     = $("#gru_coordenador").val();
+        obj.hot_id              = $("#hot_id").val();
+        obj.gru_hot_entrada     = $("#gru_hot_entrada").val();
+        obj.gru_hot_saida       = $("#gru_hot_saida").val();
+        obj.gru_hotel_detalhes  = $("#gru_hotel_detalhes").val();
+        obj.gru_entinerario     = $("#gru_entinerario").val();
    
    return obj;
 };
 
-jsCliente.setDoForm = function(obj){
-    $("#grupoId").val(obj.id);
-    $("#gnome").val(obj.nome);
-    $("#gquantidade").val(obj.quantidade);
-    $("#gguia").val(obj.guiaId);
-    $("#gvoo").val(obj.voo);
-    $("#gdata").val(obj.dtVoo);
-    $("#ghorario").val(obj.hrVoo);
-    $("#gnomehotel").val(obj.hotelId);
-    $("#gentradahotel").val(obj.hotEntrada);
-    $("#gsaidahotel").val(obj.hotSaida);
-    $("#gdescricaoreserva").val(obj.obsReserva);
-    $("#gprogramacao").val(obj.programacao);
+jsGrupo.setDoForm = function(obj){
+    $("#gru_id").val(obj.gru_id);
+    $("#gru_nome").val(obj.gru_nome);
+    $("#gru_nome_paxs").val(obj.gru_nome_paxs);
+    $("#guia_id").val(obj.guia_id);
+    $("#mot_id").val(obj.mot_id);
+    $("#gru_placa").val(obj.gru_placa);
+    $("#gru_veiculo").val(obj.gru_veiculo);
+    $("#gru_coordenador").val(obj.gru_coordenador);
+    $("#hot_id").val(obj.hot_id);
+    $("#gru_hot_entrada").val(obj.gru_hot_entrada);
+    $("#gru_hot_saida").val(obj.gru_hot_saida);
+    $("#gru_hotel_detalhes").val(obj.gru_hotel_detalhes);
+    $("#gru_entinerario").val(obj.gru_entinerario);
 };
 
-jsCliente.getlista = function(){
-    var json = jsCliente.ajax('','fetchAll');
+jsGrupo.getlista = function(){
+    var obj = new Object();
+        obj.gru_nome = 'gru_nome';
+    var json = jsGrupo.ajax(obj,'fetchAll');
     
-    main.listarNaTable($('#listaGrupo'),json.data,true);
-    jsCliente.eventosDaTable();
-    //jsCliente.paginacao();
+    try{
+        main.listarNaTable($('#listaGrupo'),json.data,true);
+        jsGrupo.eventosDaTable();
+        //jsGrupo.paginacao();
+    }catch(erro){
+        $('#listaGrupo').empty();
+        $('#listaGrupo').append("<div colspan='2' style='height:13px;padding-top: 20px'>GRUPOS NÃO LOCALIZADO !</div>");
+    }
 };
 
-jsCliente.salvar = function(){
+jsGrupo.salvar = function(){
     var obj = this.getDoForm();
     console.info(obj);
     if(obj.id ==""){
@@ -89,15 +131,15 @@ jsCliente.salvar = function(){
     }else{
         fun = 'update';
     }
-    var json = jsCliente.ajax(obj,fun); //!= null ? jsCliente.confirmacao(fun,1):jsCliente.confirmacao(fun,2) //alert("REGISTRADO COM SUCESSO!"): alert("ERRO AO GRAVAR");    
+    var json = jsGrupo.ajax(obj,fun); //!= null ? jsGrupo.confirmacao(fun,1):jsGrupo.confirmacao(fun,2) //alert("REGISTRADO COM SUCESSO!"): alert("ERRO AO GRAVAR");    
     
     $("#GrupoNovoEditar").modal('hide');
-    jsCliente.getlista();
+    jsGrupo.getlista();
     $("#infoText").text(json.message);
     $("#infoModal").modal();
 };
 
-jsCliente.confirmacao = function (a,b){
+jsGrupo.confirmacao = function (a,b){
     if(a =="update"){
         if(b==1){
             var msg = "REGISTRO EDITADO COM SUCESSO!";
@@ -111,31 +153,31 @@ jsCliente.confirmacao = function (a,b){
     $("#infoModal").modal();
 }
 
-jsCliente.editar = function(id){
+jsGrupo.editar = function(gru_id){
     var obj = new Object();
-        obj.id = id;
-    var json = jsCliente.ajax(obj,'buscaid');
-    jsCliente.setDoForm(json.data[0]);
+        obj.gru_id = gru_id;
+    var json = jsGrupo.ajax(obj,'buscaid');
+    jsGrupo.setDoForm(json.data[0]);
     $("#titulo").text('Editar Cadastro');
     $("#GrupoNovoEditar").modal();
-    jsCliente.mask();
+    jsGrupo.mask();
 };
 
-jsCliente.eventosDaTable = function(){
+jsGrupo.eventosDaTable = function(){
     $('#listaGrupo tr').each(function() {
     var codigo;
     $('td', $(this)).each(function(index, item) {            
         if(index === 0){codigo=$(item).text();}
     });            
-    $(this).click(function(){jsCliente.editar(codigo);}).css('cursor','pointer');
+    $(this).click(function(){jsGrupo.editar(codigo);}).css('cursor','pointer');
     });
 };
-jsCliente.guia = function (){
-    var json = jsCliente.ajax('','getGuia');
+jsGrupo.guia = function (){
+    var json = jsGrupo.ajax('','getGuia');
     fo
 }
 
-jsCliente.paginacao = function(){
+jsGrupo.paginacao = function(){
     $("table") 
         .tablesorter({
           dateFormat: 'uk',
@@ -150,6 +192,6 @@ jsCliente.paginacao = function(){
         }) 
         .tablesorterPager({container: $("#pager")});
 }
-jsCliente.start();
+jsGrupo.start();
 
 

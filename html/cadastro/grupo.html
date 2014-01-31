@@ -1,10 +1,6 @@
 <style>
-    #tdId{
-        width: 60px;
-    }
-    #tdchegada{
-        width: 100px;
-    }
+    input{text-transform: uppercase;}
+    textarea{text-transform: uppercase;}
 </style>
 
 <div class="col-lg-12">
@@ -114,20 +110,8 @@
         </div>
     </div>
 <script>
-    loadjscssfile('js/cadastro/jsCliente.js?nocache=1','js');
+    loadjscssfile('js/cadastro/jsGrupo.js?nocache=1','js');
     
-    $('#GrupoNovoEditar').on('hidden.bs.modal', function () {
-        $('#titulo').text('Novo Cadastro');
-        $('#GrupoNovoEditar input,textarea').each(function(){
-            $(this).val('');
-        });
-    });
-    $('#GrupoNovoEditar').on('shown.bs.modal', function () {
-        $("#gnome").focus();
-        jsCliente.mask();
-    });
-    $('#infoModal').on('hidden.bs.modal', function () {
-       //loadContent('#conteudo','html/cadastro/hotel.html?v=2');
-    });
+    
   
 </script>

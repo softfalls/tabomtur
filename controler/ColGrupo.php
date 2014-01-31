@@ -124,11 +124,11 @@ class ColGrupo {
         }
     }
 
-    public function getTodosRegistros($ordem) {
+    public function getTodosRegistros() {
         $con = new cConexao(); // Cria um novo objeto de conexão com o BD.
         $con->conectar();
         $con->selecionarDB();
-        $sql = "SELECT * FROM tab_grupo order by ".$ordem; 
+        $sql = "SELECT * FROM tab_grupo order by ".$this->gru_nome; 
         $con->set("sql", $sql);
         return $con->execute();
     }
