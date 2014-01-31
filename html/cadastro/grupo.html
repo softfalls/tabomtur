@@ -1,0 +1,132 @@
+<style>
+    #tdId{
+        width: 60px;
+    }
+    #tdchegada{
+        width: 100px;
+    }
+</style>
+
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="row">
+                <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#GrupoNovoEditar" style="float: right">Novo</button>
+                <h4 >Lista de Grupo</h4>
+                <table id="listaGrupo" class="table table-hover table-striped" ></table>
+            </div>
+        </div>
+        <div class="col-lg-6">
+
+        </div>
+            <div class="row" >
+                <div class="modal fade" id="GrupoNovoEditar">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 id="titulo" class="modal-title">Novo Cadastro</h4>
+                        </div>
+                        <div class="modal-body form-inline">
+                            <div class="col-lg-6 col-xs-12" >
+                                <label for="gru_nome">Grupo Nome</label>
+                                <input type="text" class="form-control" id="gru_nome" placeholder="Digitar nome do Grupo">
+                            </div>
+                            <div class="col-lg-6 col-xs-12" >
+                                <label for="gru_nome_paxs">Paxs Nome</label>
+                                <input type="text" class="form-control" id="gru_nome_paxs" placeholder="Digitar nome do Responsavel do Grupo">
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-lg-6 col-xs-12" >
+                                <label for="guia_nome">Guia</label>
+                                <input type="text" class="form-control" id="guia_nome" placeholder="Localizar o Guia">
+                                <input type="hidden" id="guia_id" >
+                            </div>
+                            <div class="col-lg-6 col-xs-12" >
+                                <label for="mot_nome">Motorista</label>
+                                <input type="text" class="form-control" id="mot_nome" placeholder="Localizar o Motorista">
+                                <input type="hidden" id="mot_id" >
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-lg-6 col-xs-6" >
+                                <label for="gru_placa">Placa</label>
+                                <input type="text" class="form-control" id="gru_placa" placeholder="Digitar Placa do Veiculo">
+                            </div>
+                            <div class="col-lg-6 col-xs-6" >
+                                <label for="gru_veiculo">Tipo de Veiculo</label>
+                                <input type="text" class="form-control" id="gru_veiculo" placeholder="Digitar Tipo de Veiculos Ex: VAM">
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-lg-6 col-xs-12" >
+                                <label for="gru_coordenador">Coordenador</label>
+                                <input type="text" class="form-control" id="gru_coordenador" placeholder="Digitar nome do Coordenador">
+                            </div>
+                            <div class="col-lg-6 col-xs-12" >
+                                <label for="hot_nome">Hotel</label>
+                                <input type="text" class="form-control" id="hot_nome" placeholder="Localizar o Hotel">
+                                <input type="hidden" id="hot_id" >
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-lg-6 col-xs-6" >
+                                <label for="gru_hot_entrada">Entrada Hotel</label>
+                                <input type="text" class="form-control" id="gru_hot_entrada" placeholder="Digitar data Entrada Hotel">
+                            </div>
+                            <div class="col-lg-6 col-xs-6" >
+                                <label for="gru_hot_saida">Saida Hotel</label>
+                                <input type="text" class="form-control" id="gru_hot_saida" placeholder="Digitar data Saida">
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-lg-12 col-xs-12" >
+                                <label for="gru_hotel_detalhes">Obs.: Reserva Hotel</label>
+                                <textarea class="form-control" id="gru_hotel_detalhes" placeholder="Detalhes da Reserva" style="resize: none;"></textarea>
+                            </div>
+                            <div class="col-lg-12 col-xs-12" >
+                                <label for="gru_entinerario">Entinerário</label>
+                                <textarea class="form-control" id="gru_entinerario" placeholder="Roteiro do Grupo" style="resize: none;"></textarea>
+                            </div>
+                            <input type="hidden" id="gru_id">
+                        </div>
+                        <div class="modal-footer">
+                            <button id="gru_Salvar" type="button" class="btn btn-primary">Salvar</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancela</button>
+                        </div>
+                      </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                  </div><!-- /.modal -->
+                  
+                <div class="modal fade" id="infoModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Menssagem</h4>
+                            </div>
+                        <div id="infoText" class="modal-body"></div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">fechar</button>
+                        </div>
+                      </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                  </div><!-- /.modal -->
+                
+                <!--<button type="submit" id="hSalvar" class="btn btn-default">Salvar</button>-->
+                
+            </div>
+        </div>
+    </div>
+<script>
+    loadjscssfile('js/cadastro/jsCliente.js?nocache=1','js');
+    
+    $('#GrupoNovoEditar').on('hidden.bs.modal', function () {
+        $('#titulo').text('Novo Cadastro');
+        $('#GrupoNovoEditar input,textarea').each(function(){
+            $(this).val('');
+        });
+    });
+    $('#GrupoNovoEditar').on('shown.bs.modal', function () {
+        $("#gnome").focus();
+        jsCliente.mask();
+    });
+    $('#infoModal').on('hidden.bs.modal', function () {
+       //loadContent('#conteudo','html/cadastro/hotel.html?v=2');
+    });
+  
+</script>
