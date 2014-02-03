@@ -7,15 +7,15 @@
  */
 
 class cConexao {
-    /*public $host        = "luhenmarwebcom.ipagemysql.com";
-    public $user        = "qkmarcio";
-    public $pass	= "Minotauro@036";
-    public $db          = "teste";*/
+    public $host        = "luhenmarwebcom.ipagemysql.com";
+    public $user        = "utabomtur";
+    public $pass	= "utabomtur";
+    public $db          = "tabomtur";
 	
-    public $host        = "127.0.0.1";
+    /*public $host        = "127.0.0.1";
     public $user        = "root";
     public $pass	= "";
-    public $db          = "marnovo";
+    public $db          = "marnovo";*/
     public $ultimoId;
     public $erro;
 		
