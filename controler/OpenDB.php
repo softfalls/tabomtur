@@ -9,7 +9,7 @@
 class cConexao {
     public $host        = "luhenmarwebcom.ipagemysql.com";
     public $user        = "utabomtur";
-    public $pass	= "utabomtur";
+    public $pass	= "tabomtur123";
     public $db          = "tabomtur";
 	
     /*public $host        = "127.0.0.1";
