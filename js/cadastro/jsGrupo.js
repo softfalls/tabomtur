@@ -6,6 +6,9 @@ jsGrupo.start = function(){jsGrupo.eventos();};
 jsGrupo.mask = function(){
     $("#gru_hot_saida").mask('00/00/0000');
     $("#gru_hot_entrada").mask('00/00/0000');
+    $("#mov_dataIn").mask('00/00/0000 - 00:00');
+    $("#mov_dataOut").mask('00/00/0000 - 00:00');
+    $("#pas_nascimento").mask('00/00/0000');
 };
 
 jsGrupo.eventos = function(){
