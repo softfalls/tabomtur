@@ -1,5 +1,7 @@
 var jsGrupo = {};
 
+jsGrupo.arrayIntegrantes = new Array();
+
 jsGrupo.start = function(){jsGrupo.eventos();};
 jsGrupo.mask = function(){
     $("#gru_hot_saida").mask('00/00/0000');
@@ -26,7 +28,31 @@ jsGrupo.eventos = function(){
     });
     $('#infoModal').on('hidden.bs.modal', function () {
        //loadContent('#conteudo','html/cadastro/hotel.html?v=2');
+    });    
+    
+    $('#btMaisIntegrante').click(function(){ jsGrupo.addCampoIntegrante(); });
+};
+
+jsGrupo.addCampoIntegrante=function(){
+    var linha = jsGrupo.getNovaLinha();
+    $('.divCadastroIntegrante').append(linha);
+};
+
+jsGrupo.regIntegrantes=function(){
+    jsGrupo.arrayIntegrantes = new Array();     // LIMPA O ARRAY
+    $('.linha').each(function(){                // PARA CADA LINHA
+        var obj = new Object();                 // NOVO OBJETO
+        obj.nome = $(this).find('.nome').val(); // PROCURA A CLASSE NOME DENTRO DA LINHA
+        obj.id = $(this).find('.id').val();     // PROCURA A CLASSE ID DENTRO DA LINHA   
+        jsGrupo.arrayIntegrantes.push(obj);     // ADD O OBJETO DENTRO DO ARRAY
     });
+};
+
+jsGrupo.getNovaLinha=function(){
+    var linha = $('.linha:first').clone();  // PEGA O PRIMEIRO ELEMENTO COM CLASS=LINHA E CLONA
+    linha.find('.nome').val('');            // LIMPA O NOME
+    linha.find('.id').val('');              // LIMPA O ID
+    return linha;                           // DEVOLVE NOVO ELEMENTO
 };
 
 jsGrupo.autoGuia=function(){    
@@ -125,6 +151,8 @@ jsGrupo.getlista = function(){
 
 jsGrupo.salvar = function(){
     var obj = this.getDoForm();
+    jsGrupo.regIntegrantes();                        // GRAVA OS INTEGRANTES NO ARRAY
+    obj.arrayIntegrantes = jsGrupo.arrayIntegrantes; // ADD INTEGRANTES NO SUBMIT
     console.info(obj);
     if(obj.id ==""){
         var fun = 'insert';
