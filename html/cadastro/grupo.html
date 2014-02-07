@@ -71,19 +71,69 @@
                                 <input type="text" class="form-control" id="gru_hot_saida" placeholder="Digitar data Saida">
                             </div>
                             <div class="clearfix"></div>
-                            <div class="col-lg-12 col-xs-12" >
+                            <div class="col-lg-6 col-xs-12" >
                                 <label for="gru_hotel_detalhes">Obs.: Reserva Hotel</label>
                                 <textarea class="form-control" id="gru_hotel_detalhes" placeholder="Detalhes da Reserva" style="resize: none;"></textarea>
                             </div>
-                            <div class="col-lg-12 col-xs-12" >
+                            <div class="col-lg-6 col-xs-12" >
                                 <label for="gru_entinerario">Entinerário</label>
                                 <textarea class="form-control" id="gru_entinerario" placeholder="Roteiro do Grupo" style="resize: none;"></textarea>
+                            </div>
+                            <div class="col-lg-12 col-xs-12" >
+                                <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#PassageiroNovoEditar" style="float: right">Add Passageiro</button>
+                                
                             </div>
                             <input type="hidden" id="gru_id">
                             <div class="clearfix"></div>
                         </div>
                         <div class="modal-footer">
                             <button id="gru_Salvar" type="button" class="btn btn-primary">Salvar</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancela</button>
+                        </div>
+                      </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                  </div><!-- /.modal -->
+                  <div class="modal fade" id="PassageiroNovoEditar">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 id="titulo" class="modal-title">Novo Cadastro</h4>
+                        </div>
+                        <div class="modal-body form-inline">
+                            <div class="col-lg-6 col-xs-12" >
+                                <label for="gru_nome">Nome</label>
+                                <input type="text" class="form-control" id="gru_nome" placeholder="Digitar nome do Grupo">
+                            </div>
+                            <div class="col-lg-6 col-xs-12" >
+                                <label for="gru_nome_paxs">Documento</label>
+                                <input type="text" class="form-control" id="gru_nome_paxs" placeholder="Digitar nome do Responsavel do Grupo">
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-lg-6 col-xs-12" >
+                                <label for="guia_nome">In Transporte</label>
+                                <input type="text" class="form-control" id="guia_nome" placeholder="Localizar o Guia">
+                                <input type="hidden" id="guia_id" >
+                            </div>
+                            <div class="col-lg-6 col-xs-12" >
+                                <label for="mot_nome">In Data/Hora</label>
+                                <input type="text" class="form-control" id="mot_nome" placeholder="Localizar o Motorista">
+                                <input type="hidden" id="mot_id" >
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-lg-6 col-xs-12" >
+                                <label for="guia_nome">Out Transporte</label>
+                                <input type="text" class="form-control" id="guia_nome" placeholder="Localizar o Guia">
+                                <input type="hidden" id="guia_id" >
+                            </div>
+                            <div class="col-lg-6 col-xs-12" >
+                                <label for="guia_nome">Out Data/Hora</label>
+                                <input type="text" class="form-control" id="guia_nome" placeholder="Localizar o Guia">
+                                <input type="hidden" id="guia_id" >
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="pss_Salvar" type="button" class="btn btn-primary">Inserir</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancela</button>
                         </div>
                       </div><!-- /.modal-content -->
