@@ -101,7 +101,7 @@
         </div>
     </div>
 <script>
-    loadjscssfile('js/jsInicio.js?nocache=1','js');
+   /* loadjscssfile('js/jsInicio.js?nocache=1','js');
     
     $('#InicioNovoEditar').on('hidden.bs.modal', function () {
         $('#titulo').text('Novo Cadastro');
@@ -115,6 +115,6 @@
     });
     $('#infoModal').on('hidden.bs.modal', function () {
        //loadContent('#conteudo','html/cadastro/hotel.html?v=2');
-    });
+    });*/
   
 </script>

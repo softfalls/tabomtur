@@ -16,7 +16,15 @@ class ColPassageiro {
     private $pas_nome;
     private $pas_nascimento;
     private $pas_documento;
-    private $dica;
+    private $mov_tipoIn;
+    private $mov_transporteIn;
+    private $mov_dataIn;
+    private $mov_tipoOut;
+    private $mov_transporteOut;
+    private $mov_dataOut;
+    
+    
+    
 
     //#atribuir valores as propriedades da classe;
 
@@ -33,15 +41,27 @@ class ColPassageiro {
         $con->conectar();
         $con->selecionarDB();
         $sql = "INSERT INTO tab_passageiro (
-                    gru_id,
-                    pas_nome,
-                    pas_nascimento,
-                    pas_documento,
-                ) VALUES (";
+                    (
+                    `gru_id`,
+                    `pas_nome`,
+                    `pas_nascimento`,
+                    `pas_documento`,
+                    `mov_tipoIn`,
+                    `mov_transporteIn`,
+                    `mov_dataIn`,
+                    `mov_tipoOut`,
+                    `mov_transporteOut`,
+                    `mov_dataOut`) VALUES (";
         $sql .="" . $this->gru_id . ",";
         $sql .="'" . strtoupper(addslashes($this->pas_nome)) . "',";
         $sql .="'" . $this->pas_nascimento . "',";
         $sql .="'" . strtoupper(addslashes($this->pas_documento)) . "'";
+        $sql .="'" . strtoupper(addslashes($this->mov_tipoIn)) . "'";
+        $sql .="'" . strtoupper(addslashes($this->mov_transporteIn)) . "'";
+        $sql .="'" . strtoupper(addslashes($this->mov_dataIn)) . "'";
+        $sql .="'" . strtoupper(addslashes($this->mov_tipoOut)) . "'";
+        $sql .="'" . strtoupper(addslashes($this->mov_transporteOut)) . "'";
+        $sql .="'" . strtoupper(addslashes($this->mov_dataOut)) . "'";
         $sql .=")";
 
         $con->set("sql", $sql);

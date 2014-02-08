@@ -1,11 +1,12 @@
 <?php
 include '../controler/OpenDB.php';
 include '../controler/ColGrupo.php';
+include_once '../controler/ColPassageiro.php';
 include '../lib/formatador.php';
 
 //set
 $c = new ColGrupo();
-
+$colPassageiro = new ColPassageiro();
 //route
 $action = $_REQUEST['action'];
 
@@ -36,6 +37,27 @@ function insert() {
     $c->set("gru_entinerario", $obj->gru_entinerario);
     
     $insert = $c->incluir();
+    
+    // CONSULTA LAST_INSERD_ID NO BANCO
+    $r = mysql_query("select last_insert_id() as gru_id");
+    $objetoR = mysql_fetch_object($r);
+    $gru_id = $objetoR->gru_id;
+    
+    for ($index = 0; $index < count($obj->arrayIntegrantes ); $index++) {
+        $o = (object) $obj->arrayIntegrantes[$index];
+        global $colPassageiro;
+        $colPassageiro->set("gru_id", $gru_id); // gru_id vem do last_insert_id
+        $colPassageiro->set("pas_nome", $o->pas_nome);
+        $colPassageiro->set("pas_nascimento", $o->pas_nascimento);
+        $colPassageiro->set("pas_documento", $o->pas_documento);
+        $colPassageiro->set("mov_tipoIn", $o->mov_tipoIn);
+        $colPassageiro->set("mov_transporteIn", $o->mov_transporteIn);
+        $colPassageiro->set("mov_dataIn", $o->mov_dataIn);
+        $colPassageiro->set("mov_tipoOut", $o->mov_tipoOut);
+        $colPassageiro->set("mov_transporteOut", $o->mov_transporteOut);
+        $colPassageiro->set("mov_dataOut", $o->mov_dataOut);
+        $colPassageiro->incluir();
+    }
 
     $msg = $insert ? 'Registro(s) inserido(s) com sucesso' : 'Erro ao inserir o registro, tente novamente.';
 

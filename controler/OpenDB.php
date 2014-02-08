@@ -7,18 +7,19 @@
  */
 
 class cConexao {
-    public $host        = "luhenmarwebcom.ipagemysql.com";
+    /*public $host        = "luhenmarwebcom.ipagemysql.com";
     public $user        = "utabomtur";
     public $pass	= "tabomtur123";
-    public $db          = "tabomtur";
+    public $db          = "tabomtur";*/
 	
-    /*public $host        = "127.0.0.1";
+    public $host        = "127.0.0.1";
     public $user        = "root";
     public $pass	= "";
-    public $db          = "marnovo";*/
+    public $db          = "tabomtur";
     public $ultimoId;
     public $erro;
 		
+    
     #conecta no banco de dados;
     function conectar(){     
         $con = mysql_connect($this->host, $this->user, $this->pass) or die($this->erro(mysql_error()));     

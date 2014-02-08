@@ -15,8 +15,8 @@ jsGrupo.eventos = function(){
     jsGrupo.getlista();
     jsGrupo.mask();
     jsGrupo.autoGuia();
-    jsGrupo.autoHotel();
-    jsGrupo.autoMotorista();
+    //jsGrupo.autoHotel();
+    //jsGrupo.autoMotorista();
     
     $('#gru_Salvar').click(function(){jsGrupo.salvar();});
     
@@ -33,30 +33,42 @@ jsGrupo.eventos = function(){
        //loadContent('#conteudo','html/cadastro/hotel.html?v=2');
     });    
     
-    $('#btMaisIntegrante').click(function(){ jsGrupo.addCampoIntegrante(); });
+    $('#pss_Salvar').click(function(){ jsGrupo.regIntegrantes(); });
+    
+    //$('#btMaisIntegrante').click(function(){ jsGrupo.addCampoIntegrante(); });
 };
 
-jsGrupo.addCampoIntegrante=function(){
+/*jsGrupo.addCampoIntegrante=function(){
     var linha = jsGrupo.getNovaLinha();
     $('.divCadastroIntegrante').append(linha);
-};
+};*/
 
 jsGrupo.regIntegrantes=function(){
-    jsGrupo.arrayIntegrantes = new Array();     // LIMPA O ARRAY
-    $('.linha').each(function(){                // PARA CADA LINHA
-        var obj = new Object();                 // NOVO OBJETO
-        obj.nome = $(this).find('.nome').val(); // PROCURA A CLASSE NOME DENTRO DA LINHA
-        obj.id = $(this).find('.id').val();     // PROCURA A CLASSE ID DENTRO DA LINHA   
-        jsGrupo.arrayIntegrantes.push(obj);     // ADD O OBJETO DENTRO DO ARRAY
-    });
+    var obj = new Object();                 // NOVO OBJETO
+    obj.pas_nome = $('#pas_nome').val(); 
+    obj.pas_nascimento = $('#pas_nascimento').val();
+    obj.pas_documento = $('#pas_documento').val();
+    obj.mov_tipoIn = $('#mov_tipoIn :selected').text();
+    obj.mov_transporteIn = $('#mov_transporteIn').val();
+    obj.mov_dataIn = $('#mov_dataIn').val();
+    obj.mov_tipoOut = $('#mov_tipoOut :selected').text();
+    obj.mov_transporteOut = $('#mov_transporteOut').val();
+    obj.mov_dataOut = $('#mov_dataOut').val();
+    jsGrupo.arrayIntegrantes.push(obj);     // ADD O OBJETO DENTRO DO ARRAY
+    
+    //apagar campos que nao irá se repetir num proximo cadastro
+    $('#pas_nome').val(''); 
+    $('#pas_nascimento').val('');
+    $('#pas_documento').val('');
+    $('#PassageiroNovoEditar').hide();  //  FECHAR A JANELA DO CADASTRO DE PASSAGEIRO
 };
 
-jsGrupo.getNovaLinha=function(){
+/*jsGrupo.getNovaLinha=function(){
     var linha = $('.linha:first').clone();  // PEGA O PRIMEIRO ELEMENTO COM CLASS=LINHA E CLONA
     linha.find('.nome').val('');            // LIMPA O NOME
     linha.find('.id').val('');              // LIMPA O ID
     return linha;                           // DEVOLVE NOVO ELEMENTO
-};
+};*/
 
 jsGrupo.autoGuia=function(){    
     main.autocomplet($('#guia_nome'),'guia_nome','buscaNome','view/vGuia.php');    
