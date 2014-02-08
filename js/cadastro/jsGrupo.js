@@ -34,7 +34,7 @@ jsGrupo.eventos = function(){
     });    
     
     $('#pss_Salvar').click(function(){ jsGrupo.regIntegrantes(); });
-    
+    $('#PassageiroNovoEditar').focus(function(){ $('#pas_nome').focus(); }); // dar focus na segunda tela
     //$('#btMaisIntegrante').click(function(){ jsGrupo.addCampoIntegrante(); });
 };
 
@@ -60,7 +60,18 @@ jsGrupo.regIntegrantes=function(){
     $('#pas_nome').val(''); 
     $('#pas_nascimento').val('');
     $('#pas_documento').val('');
-    $('#PassageiroNovoEditar').hide();  //  FECHAR A JANELA DO CADASTRO DE PASSAGEIRO
+    $('#voltar').click();  //  FECHAR A JANELA DO CADASTRO DE PASSAGEIRO
+    
+    jsGrupo.listarPassageiros();
+};
+
+jsGrupo.listarPassageiros=function(){
+    $('#integrantes').val('');
+    for(var i=0; i< jsGrupo.arrayIntegrantes.length; i++){
+        var obj = jsGrupo.arrayIntegrantes[i];
+        var v = $('#integrantes').val();
+        $('#integrantes').val(v+obj.pas_nome+'\n');        
+    }
 };
 
 /*jsGrupo.getNovaLinha=function(){
@@ -119,12 +130,12 @@ jsGrupo.getDoForm = function(){
         obj.gru_id              = $("#gru_id").val();
         obj.gru_nome            = $("#gru_nome").val();
         obj.gru_nome_paxs       = $("#gru_nome_paxs").val();
-        obj.guia_id             = $("#guia_id").val();
-        obj.mot_id              = $("#mot_id").val();
+        obj.guia_id             = $("#guia_id").val() == "" ? "NULL" : $("#guia_id").val();
+        obj.mot_id              = $("#mot_id").val() == "" ? "NULL" :$("#mot_id").val() ;
         obj.gru_placa           = $("#gru_placa").val();
         obj.gru_veiculo         = $("#gru_veiculo").val();
         obj.gru_coordenador     = $("#gru_coordenador").val();
-        obj.hot_id              = $("#hot_id").val();
+        obj.hot_id              = $("#hot_id").val() == "" ? 'NULL' : $("#hot_id").val();
         obj.gru_hot_entrada     = $("#gru_hot_entrada").val();
         obj.gru_hot_saida       = $("#gru_hot_saida").val();
         obj.gru_hotel_detalhes  = $("#gru_hotel_detalhes").val();
@@ -166,10 +177,10 @@ jsGrupo.getlista = function(){
 
 jsGrupo.salvar = function(){
     var obj = this.getDoForm();
-    jsGrupo.regIntegrantes();                        // GRAVA OS INTEGRANTES NO ARRAY
+    
     obj.arrayIntegrantes = jsGrupo.arrayIntegrantes; // ADD INTEGRANTES NO SUBMIT
     console.info(obj);
-    if(obj.id ==""){
+    if(obj.gru_id ==""){
         var fun = 'insert';
     }else{
         fun = 'update';
@@ -180,6 +191,7 @@ jsGrupo.salvar = function(){
     jsGrupo.getlista();
     $("#infoText").text(json.message);
     $("#infoModal").modal();
+    jsGrupo.arrayIntegrantes = new Array(); // limpa o array depois de inserir tudo
 };
 
 jsGrupo.confirmacao = function (a,b){

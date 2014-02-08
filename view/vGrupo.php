@@ -22,7 +22,8 @@ else
 function insert() {
     $obj = (object) $_REQUEST['obj'];
 
-    global $c;
+    global $c;    
+    
     $c->set("mot_id", $obj->mot_id);
     $c->set("guia_id", $obj->guia_id);
     $c->set("hot_id", $obj->hot_id);

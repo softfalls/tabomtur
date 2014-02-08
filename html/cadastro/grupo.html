@@ -78,9 +78,13 @@
                             <div class="col-lg-6 col-xs-12" >
                                 <label for="gru_entinerario">Itinerário</label>
                                 <textarea class="form-control" id="gru_entinerario" style="resize: none;"></textarea>
+                            </div>                            
+                            <div class="col-lg-6 col-xs-12" >
+                                <label for="integrantes">Integrantes</label>
+                                <textarea class="form-control" id="integrantes" style="resize: none; overflow: auto;" readonly="readonly"></textarea>
                             </div>
-                            <div class="col-lg-12 col-xs-12" style="margin-top: 10px">
-                                <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#PassageiroNovoEditar" style="float: right">Add Passageiro</button>
+                            <div class="col-lg-6 col-xs-12" style="margin-top: 10px">
+                                <button id="addPass" class="btn btn-default btn-sm" data-toggle="modal" data-target="#PassageiroNovoEditar" style="float: right">Add Passageiro</button>
                             </div>
                             <input type="hidden" id="gru_id">
                             <div class="clearfix"></div>
@@ -150,7 +154,7 @@
                         </div>
                         <div class="modal-footer">
                             <button id="pss_Salvar" type="button" class="btn btn-primary">Inserir</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Voltar</button>
+                            <button id="voltar" type="button" class="btn btn-default" data-dismiss="modal">Voltar</button>
                         </div>
                       </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->

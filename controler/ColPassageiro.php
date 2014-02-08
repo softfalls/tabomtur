@@ -40,8 +40,7 @@ class ColPassageiro {
         $con = new cConexao(); // Cria um novo objeto de conexão com o BD. 
         $con->conectar();
         $con->selecionarDB();
-        $sql = "INSERT INTO tab_passageiro (
-                    (
+        $sql = "INSERT INTO tab_passageiro (                    
                     `gru_id`,
                     `pas_nome`,
                     `pas_nascimento`,
@@ -55,12 +54,12 @@ class ColPassageiro {
         $sql .="" . $this->gru_id . ",";
         $sql .="'" . strtoupper(addslashes($this->pas_nome)) . "',";
         $sql .="'" . $this->pas_nascimento . "',";
-        $sql .="'" . strtoupper(addslashes($this->pas_documento)) . "'";
-        $sql .="'" . strtoupper(addslashes($this->mov_tipoIn)) . "'";
-        $sql .="'" . strtoupper(addslashes($this->mov_transporteIn)) . "'";
-        $sql .="'" . strtoupper(addslashes($this->mov_dataIn)) . "'";
-        $sql .="'" . strtoupper(addslashes($this->mov_tipoOut)) . "'";
-        $sql .="'" . strtoupper(addslashes($this->mov_transporteOut)) . "'";
+        $sql .="'" . strtoupper(addslashes($this->pas_documento)) . "',";
+        $sql .="'" . strtoupper(addslashes($this->mov_tipoIn)) . "',";
+        $sql .="'" . strtoupper(addslashes($this->mov_transporteIn)) . "',";
+        $sql .="'" . strtoupper(addslashes($this->mov_dataIn)) . "',";
+        $sql .="'" . strtoupper(addslashes($this->mov_tipoOut)) . "',";
+        $sql .="'" . strtoupper(addslashes($this->mov_transporteOut)) . "',";
         $sql .="'" . strtoupper(addslashes($this->mov_dataOut)) . "'";
         $sql .=")";
 
